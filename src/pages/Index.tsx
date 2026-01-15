@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
+import WatercolorDecoration from '@/components/WatercolorDecoration';
 
 const Index = () => {
   const [cartCount, setCartCount] = useState(0);
@@ -55,7 +56,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      <WatercolorDecoration />
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -92,6 +94,15 @@ const Index = () => {
       </header>
 
       <section className="relative h-[500px] bg-gradient-to-br from-primary/5 to-primary/10 overflow-hidden">
+        <div className="absolute inset-0 opacity-5 pointer-events-none">
+          <svg className="absolute top-10 right-1/4 w-32 h-32" viewBox="0 0 120 120" fill="none">
+            <path d="M60 20C55 18 50 22 48 28C46 34 50 40 56 42C52 45 50 52 53 58C56 64 62 66 68 64C69 69 74 72 79 71C84 70 87 65 86 60C92 59 96 53 94 47C92 41 86 38 80 40C82 35 80 28 75 25C70 22 64 23 62 28C60 25 57 23 53 22C49 21 45 23 44 27" fill="currentColor" className="text-primary" />
+          </svg>
+          <svg className="absolute bottom-20 left-1/3 w-40 h-40" viewBox="0 0 150 150" fill="none">
+            <ellipse cx="75" cy="75" rx="30" ry="45" fill="currentColor" className="text-primary" transform="rotate(-30 75 75)" />
+            <ellipse cx="75" cy="75" rx="25" ry="40" fill="currentColor" className="text-primary" transform="rotate(30 75 75)" />
+          </svg>
+        </div>
         <div className="container mx-auto px-4 h-full">
           <div className="grid md:grid-cols-2 gap-8 h-full items-center">
             <div className="space-y-6 animate-fade-in">
@@ -121,7 +132,17 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-secondary/30">
+      <section className="py-16 bg-secondary/30 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+          <svg className="absolute top-5 left-10 w-24 h-24" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="20" fill="currentColor" className="text-primary" opacity="0.3" />
+            <path d="M50 15L52 35L60 25L58 45L68 38L62 55L78 52L68 65L82 70L65 72L70 88L55 75L52 92L50 75L45 90L48 73L32 80L40 68L25 65L40 58L28 48L43 52L38 35L50 45L48 25" fill="currentColor" className="text-primary" />
+          </svg>
+          <svg className="absolute bottom-10 right-20 w-28 h-28" viewBox="0 0 110 110" fill="none">
+            <ellipse cx="55" cy="55" rx="15" ry="25" fill="currentColor" className="text-primary" opacity="0.3" transform="rotate(45 55 55)" />
+            <ellipse cx="55" cy="55" rx="15" ry="25" fill="currentColor" className="text-primary" opacity="0.3" transform="rotate(-45 55 55)" />
+          </svg>
+        </div>
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <h3 className="text-3xl font-bold text-center mb-8 font-serif">Быстрый заказ букета</h3>
@@ -173,7 +194,16 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="catalog" className="py-16">
+      <section id="catalog" className="py-16 relative">
+        <div className="absolute inset-0 opacity-5 pointer-events-none">
+          <svg className="absolute top-1/4 right-10 w-36 h-36" viewBox="0 0 140 140" fill="none">
+            <path d="M70 30L73 48L82 38L79 56L90 48L84 64L100 62L90 75L103 80L88 85L95 98L80 90L78 105L70 88L62 103L64 88L48 95L56 82L42 80L55 73L45 62L60 66L54 48L67 58L65 40" fill="currentColor" className="text-primary" />
+          </svg>
+          <svg className="absolute bottom-1/3 left-1/4 w-32 h-32" viewBox="0 0 120 120" fill="none">
+            <ellipse cx="60" cy="60" rx="20" ry="35" fill="currentColor" className="text-primary" opacity="0.3" transform="rotate(20 60 60)" />
+            <ellipse cx="60" cy="60" rx="18" ry="30" fill="currentColor" className="text-primary" opacity="0.3" transform="rotate(-60 60 60)" />
+          </svg>
+        </div>
         <div className="container mx-auto px-4">
           <h3 className="text-4xl font-bold text-center mb-12 font-serif">Каталог</h3>
           
