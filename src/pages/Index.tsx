@@ -250,6 +250,93 @@ const Index = () => {
         </div>
       </section>
 
+      <section className="py-16 bg-secondary/30 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5 pointer-events-none">
+          <svg className="absolute top-20 left-1/4 w-28 h-28" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="55" r="18" fill="currentColor" className="text-primary" opacity="0.3" />
+            <path d="M55 20L57 38L65 28L63 46L73 38L68 54L83 52L73 64L86 69L71 72L76 86L62 75L59 90L55 75L50 88L52 72L37 79L44 67L30 64L43 57L34 46L48 50L43 33L55 43L53 25" fill="currentColor" className="text-primary" />
+          </svg>
+        </div>
+
+        <div className="container mx-auto px-4">
+          <h3 className="text-4xl font-bold text-center mb-4 font-serif">Отзывы наших клиентов</h3>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Мы ценим каждого клиента и стараемся сделать их особенные моменты незабываемыми
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="hover:shadow-xl transition-shadow">
+              <CardContent className="p-6 space-y-4">
+                <div className="flex items-center gap-4">
+                  <img 
+                    src="https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/4e449abe-0287-46e8-bc38-96980f5c1616.jpg"
+                    alt="Анна"
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                  <div>
+                    <h4 className="font-semibold font-serif text-lg">Анна Петрова</h4>
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Icon key={i} name="Star" size={14} className="text-yellow-500 fill-yellow-500" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Заказывала букет на день рождения подруги. Цветы потрясающие! Свежие, ароматные, композиция просто волшебная. Доставили вовремя, упаковка очень красивая. Обязательно буду заказывать ещё!
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-xl transition-shadow">
+              <CardContent className="p-6 space-y-4">
+                <div className="flex items-center gap-4">
+                  <img 
+                    src="https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/6f9edbf8-2214-4fcd-a778-46a4d653e97f.jpg"
+                    alt="Екатерина"
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                  <div>
+                    <h4 className="font-semibold font-serif text-lg">Екатерина Смирнова</h4>
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Icon key={i} name="Star" size={14} className="text-yellow-500 fill-yellow-500" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Профессиональный подход! Флористы помогли подобрать идеальный букет для свадьбы. Каждая деталь продумана до мелочей. Гости были в восторге от композиций. Спасибо за ваш талант!
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-xl transition-shadow">
+              <CardContent className="p-6 space-y-4">
+                <div className="flex items-center gap-4">
+                  <img 
+                    src="https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/e76fc3a1-099b-4fb2-88cd-7411ed282a38.jpg"
+                    alt="Мария"
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                  <div>
+                    <h4 className="font-semibold font-serif text-lg">Мария Иванова</h4>
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Icon key={i} name="Star" size={14} className="text-yellow-500 fill-yellow-500" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Заказываю цветы в Cvetanika уже не первый раз. Всегда на высшем уровне! Отдельное спасибо за индивидуальный подход и внимание к деталям. Это лучшая цветочная студия в городе!
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       <footer className="bg-primary/5 border-t py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
