@@ -1,12 +1,280 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import Icon from '@/components/ui/icon';
 
 const Index = () => {
+  const [cartCount, setCartCount] = useState(0);
+  const [selectedOccasion, setSelectedOccasion] = useState('');
+  const [selectedBudget, setSelectedBudget] = useState('');
+
+  const categories = [
+    { id: 1, name: 'Букеты', icon: 'Flower2', count: 24 },
+    { id: 2, name: 'Цветочные композиции', icon: 'Sparkles', count: 18 },
+    { id: 3, name: 'Цветы (срезка)', icon: 'Leaf', count: 32 },
+    { id: 4, name: 'Подарки и сувениры', icon: 'Gift', count: 15 },
+    { id: 5, name: 'Дополнения к цветам', icon: 'Package', count: 12 },
+  ];
+
+  const products = [
+    {
+      id: 1,
+      name: 'Нежность весны',
+      price: 3500,
+      image: 'https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/906f88c7-e792-4459-902a-bcd23a9408d8.jpg',
+      category: 'Букеты'
+    },
+    {
+      id: 2,
+      name: 'Романтика',
+      price: 4200,
+      image: 'https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/906f88c7-e792-4459-902a-bcd23a9408d8.jpg',
+      category: 'Букеты'
+    },
+    {
+      id: 3,
+      name: 'Летний сад',
+      price: 5800,
+      image: 'https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/906f88c7-e792-4459-902a-bcd23a9408d8.jpg',
+      category: 'Композиции'
+    },
+    {
+      id: 4,
+      name: 'Элегантность',
+      price: 6500,
+      image: 'https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/906f88c7-e792-4459-902a-bcd23a9408d8.jpg',
+      category: 'Композиции'
+    }
+  ];
+
+  const handleAddToCart = () => {
+    setCartCount(cartCount + 1);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-8">
+              <h1 className="text-3xl font-bold text-primary font-serif">Cvetanika</h1>
+              
+              <nav className="hidden md:flex items-center gap-6">
+                <a href="#catalog" className="text-sm font-medium hover:text-primary transition-colors">Каталог</a>
+                <a href="#delivery" className="text-sm font-medium hover:text-primary transition-colors">Доставка и оплата</a>
+                <a href="#contacts" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
+              </nav>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <a href="https://t.me/cvetanika" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                <Icon name="Send" size={20} />
+              </a>
+              <a href="https://vk.com/cvetanika" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14c5.6 0 6.93-1.33 6.93-6.93V8.93C22 3.33 20.67 2 15.07 2zm3.13 14.44h-1.33c-.52 0-.68-.42-1.61-1.35-.82-.77-1.18-.87-1.38-.87-.29 0-.37.08-.37.47v1.23c0 .33-.11.53-1 .53-1.48 0-3.12-.9-4.27-2.57-1.73-2.47-2.2-4.33-2.2-4.71 0-.2.08-.39.47-.39h1.33c.35 0 .48.16.62.54.69 2 1.87 3.75 2.35 3.75.18 0 .27-.08.27-.54v-2.1c-.06-.99-.58-1.08-.58-1.43 0-.16.13-.32.34-.32h2.09c.3 0 .4.16.4.5v2.83c0 .3.13.4.21.4.18 0 .33-.1.67-.44 1.04-1.17 1.79-2.97 1.79-2.97.1-.21.26-.39.67-.39h1.33c.4 0 .49.2.4.5-.16.72-1.84 3.4-1.84 3.4-.15.25-.21.36 0 .65.15.21.64.63 1 1.02.65.71 1.14 1.31 1.27 1.73.14.4-.07.61-.47.61z"/>
+                </svg>
+              </a>
+              <Button variant="ghost" size="icon" className="relative" onClick={() => setCartCount(0)}>
+                <Icon name="ShoppingCart" size={20} />
+                {cartCount > 0 && (
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs">
+                    {cartCount}
+                  </Badge>
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section className="relative h-[500px] bg-gradient-to-br from-primary/5 to-primary/10 overflow-hidden">
+        <div className="container mx-auto px-4 h-full">
+          <div className="grid md:grid-cols-2 gap-8 h-full items-center">
+            <div className="space-y-6 animate-fade-in">
+              <Badge className="bg-primary/90 text-primary-foreground text-base px-4 py-2">
+                <Icon name="Sparkles" size={16} className="mr-2" />
+                Скидка 15% на предзаказ
+              </Badge>
+              <h2 className="text-5xl md:text-6xl font-bold text-foreground font-serif leading-tight">
+                Авторские букеты с душой
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Создаём уникальные композиции для ваших особенных моментов
+              </p>
+              <Button size="lg" className="text-base" onClick={handleAddToCart}>
+                Оформить предзаказ
+                <Icon name="ArrowRight" size={18} className="ml-2" />
+              </Button>
+            </div>
+            <div className="hidden md:block relative h-full">
+              <img 
+                src="https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/906f88c7-e792-4459-902a-bcd23a9408d8.jpg"
+                alt="Букет цветов"
+                className="absolute right-0 top-1/2 -translate-y-1/2 h-[90%] w-auto object-cover rounded-lg shadow-2xl animate-scale-in"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-secondary/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <h3 className="text-3xl font-bold text-center mb-8 font-serif">Быстрый заказ букета</h3>
+            <Card>
+              <CardContent className="p-6 space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Повод</label>
+                    <Select value={selectedOccasion} onValueChange={setSelectedOccasion}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Выберите повод" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="birthday">День рождения</SelectItem>
+                        <SelectItem value="wedding">Свадьба</SelectItem>
+                        <SelectItem value="anniversary">Годовщина</SelectItem>
+                        <SelectItem value="romantic">Романтическое свидание</SelectItem>
+                        <SelectItem value="corporate">Корпоратив</SelectItem>
+                        <SelectItem value="other">Другое</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Бюджет</label>
+                    <Select value={selectedBudget} onValueChange={setSelectedBudget}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Выберите бюджет" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="budget1">До 3 000 ₽</SelectItem>
+                        <SelectItem value="budget2">3 000 - 5 000 ₽</SelectItem>
+                        <SelectItem value="budget3">5 000 - 8 000 ₽</SelectItem>
+                        <SelectItem value="budget4">От 8 000 ₽</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Телефон</label>
+                  <Input type="tel" placeholder="+7 (___) ___-__-__" />
+                </div>
+                <Button className="w-full" size="lg" onClick={handleAddToCart}>
+                  <Icon name="Sparkles" size={18} className="mr-2" />
+                  Подобрать букет
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="catalog" className="py-16">
+        <div className="container mx-auto px-4">
+          <h3 className="text-4xl font-bold text-center mb-12 font-serif">Каталог</h3>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-16">
+            {categories.map((category) => (
+              <Card key={category.id} className="hover:shadow-lg transition-shadow cursor-pointer group">
+                <CardContent className="p-6 text-center space-y-3">
+                  <div className="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <Icon name={category.icon as any} size={24} className="text-primary" />
+                  </div>
+                  <h4 className="font-semibold text-sm">{category.name}</h4>
+                  <p className="text-xs text-muted-foreground">{category.count} товаров</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.map((product) => (
+              <Card key={product.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <Badge className="absolute top-3 right-3 bg-primary/90">
+                    {product.category}
+                  </Badge>
+                </div>
+                <CardContent className="p-4 space-y-3">
+                  <h4 className="font-semibold text-lg font-serif">{product.name}</h4>
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-primary">{product.price} ₽</span>
+                    <Button size="sm" onClick={handleAddToCart}>
+                      <Icon name="ShoppingCart" size={16} className="mr-1" />
+                      Купить
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-primary/5 border-t py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h4 className="text-2xl font-bold mb-4 font-serif text-primary">Cvetanika</h4>
+              <p className="text-sm text-muted-foreground">
+                Цветочная студия авторских букетов и композиций
+              </p>
+            </div>
+            <div>
+              <h5 className="font-semibold mb-3">Каталог</h5>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><a href="#" className="hover:text-primary transition-colors">Букеты</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Композиции</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Цветы</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Подарки</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="font-semibold mb-3">Информация</h5>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><a href="#delivery" className="hover:text-primary transition-colors">Доставка и оплата</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">О нас</a></li>
+                <li><a href="#contacts" className="hover:text-primary transition-colors">Контакты</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="font-semibold mb-3">Контакты</h5>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <Icon name="Phone" size={16} />
+                  <span>+7 (999) 123-45-67</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Icon name="Mail" size={16} />
+                  <span>info@cvetanika.ru</span>
+                </li>
+                <li className="flex items-center gap-2 pt-2">
+                  <a href="https://t.me/cvetanika" className="hover:text-primary transition-colors">
+                    <Icon name="Send" size={20} />
+                  </a>
+                  <a href="https://vk.com/cvetanika" className="hover:text-primary transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14c5.6 0 6.93-1.33 6.93-6.93V8.93C22 3.33 20.67 2 15.07 2zm3.13 14.44h-1.33c-.52 0-.68-.42-1.61-1.35-.82-.77-1.18-.87-1.38-.87-.29 0-.37.08-.37.47v1.23c0 .33-.11.53-1 .53-1.48 0-3.12-.9-4.27-2.57-1.73-2.47-2.2-4.33-2.2-4.71 0-.2.08-.39.47-.39h1.33c.35 0 .48.16.62.54.69 2 1.87 3.75 2.35 3.75.18 0 .27-.08.27-.54v-2.1c-.06-.99-.58-1.08-.58-1.43 0-.16.13-.32.34-.32h2.09c.3 0 .4.16.4.5v2.83c0 .3.13.4.21.4.18 0 .33-.1.67-.44 1.04-1.17 1.79-2.97 1.79-2.97.1-.21.26-.39.67-.39h1.33c.4 0 .49.2.4.5-.16.72-1.84 3.4-1.84 3.4-.15.25-.21.36 0 .65.15.21.64.63 1 1.02.65.71 1.14 1.31 1.27 1.73.14.4-.07.61-.47.61z"/>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
+            <p>© 2024 Cvetanika. Все права защищены.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
