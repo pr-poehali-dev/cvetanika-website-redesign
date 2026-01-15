@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 import WatercolorDecoration from '@/components/WatercolorDecoration';
 
@@ -11,6 +12,7 @@ const Index = () => {
   const [cartCount, setCartCount] = useState(0);
   const [selectedOccasion, setSelectedOccasion] = useState('');
   const [selectedBudget, setSelectedBudget] = useState('');
+  const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
 
   const categories = [
     { id: 1, name: 'Букеты', icon: 'Flower2', count: 24 },
@@ -64,12 +66,16 @@ const Index = () => {
             <div className="flex items-center gap-8">
               <h1 className="text-3xl font-bold text-primary font-serif">Cvetanika</h1>
               
-              <nav className="hidden md:flex items-center gap-6">
-                <a href="#catalog" className="text-sm font-medium hover:text-primary transition-colors">Каталог</a>
-                <a href="#delivery" className="text-sm font-medium hover:text-primary transition-colors">Доставка и оплата</a>
-                <a href="#contacts" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
-              </nav>
             </div>
+
+            <nav className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
+              <a href="#catalog" className="text-sm font-medium hover:text-primary transition-colors">Каталог</a>
+              <a href="#delivery" className="text-sm font-medium hover:text-primary transition-colors">Доставка и оплата</a>
+              <a href="#reviews" className="text-sm font-medium hover:text-primary transition-colors">Отзывы</a>
+              <a href="#contacts" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
+            </nav>
+
+            <div className="flex items-center gap-8">
 
             <div className="flex items-center gap-4">
               <a href="https://t.me/cvetanika" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
@@ -106,90 +112,79 @@ const Index = () => {
         <div className="container mx-auto px-4 h-full">
           <div className="grid md:grid-cols-2 gap-8 h-full items-center">
             <div className="space-y-6 animate-fade-in">
-              <Badge className="bg-primary/90 text-primary-foreground text-base px-4 py-2">
-                <Icon name="Sparkles" size={16} className="mr-2" />
-                Скидка 15% на предзаказ
-              </Badge>
               <h2 className="text-5xl md:text-6xl font-bold text-foreground font-serif leading-tight">
                 Авторские букеты с душой
               </h2>
               <p className="text-lg text-muted-foreground">
-                Создаём уникальные композиции для ваших особенных моментов
+                Создаём уникальные букеты для ваших особенных моментов
               </p>
-              <Button size="lg" className="text-base" onClick={handleAddToCart}>
-                Оформить предзаказ
-                <Icon name="ArrowRight" size={18} className="ml-2" />
-              </Button>
+              <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="text-base">
+                    Оформить предзаказ
+                    <Icon name="ArrowRight" size={18} className="ml-2" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-serif">Подобрать букет по поводу или по бюджету</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 py-4">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Повод</label>
+                      <Select value={selectedOccasion} onValueChange={setSelectedOccasion}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Выберите повод" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="birthday">День рождения</SelectItem>
+                          <SelectItem value="wedding">Свадьба</SelectItem>
+                          <SelectItem value="anniversary">Годовщина</SelectItem>
+                          <SelectItem value="romantic">Романтическое свидание</SelectItem>
+                          <SelectItem value="corporate">Корпоратив</SelectItem>
+                          <SelectItem value="other">Другое</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Бюджет</label>
+                      <Select value={selectedBudget} onValueChange={setSelectedBudget}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Выберите бюджет" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="budget1">До 3 000 ₽</SelectItem>
+                          <SelectItem value="budget2">3 000 - 5 000 ₽</SelectItem>
+                          <SelectItem value="budget3">5 000 - 8 000 ₽</SelectItem>
+                          <SelectItem value="budget4">От 8 000 ₽</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Телефон</label>
+                      <Input type="tel" placeholder="+7 (___) ___-__-__" />
+                    </div>
+                    <Button className="w-full" size="lg" onClick={() => { handleAddToCart(); setIsOrderDialogOpen(false); }}>
+                      <Icon name="Sparkles" size={18} className="mr-2" />
+                      Подобрать букет
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
             <div className="hidden md:block relative h-full">
-              <img 
-                src="https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/906f88c7-e792-4459-902a-bcd23a9408d8.jpg"
-                alt="Букет цветов"
-                className="absolute right-0 top-1/2 -translate-y-1/2 h-[90%] w-auto object-cover rounded-lg shadow-2xl animate-scale-in"
-              />
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[90%] w-auto">
+                <img 
+                  src="https://cdn.poehali.dev/projects/b9c17821-38ef-4b59-9fdb-d33e13d6de44/files/1e8c930b-4284-480e-9bdf-71e953618628.jpg"
+                  alt="Букет цветов"
+                  className="h-full w-auto object-cover rounded-lg shadow-2xl animate-scale-in"
+                />
+                <div className="absolute top-8 left-8 bg-primary/95 text-primary-foreground px-6 py-4 rounded-lg shadow-lg backdrop-blur">
+                  <p className="text-lg font-semibold">Скидка 15%</p>
+                  <p className="text-sm">на предзаказ</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-secondary/30 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-          <svg className="absolute top-5 left-10 w-24 h-24" viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="20" fill="currentColor" className="text-primary" opacity="0.3" />
-            <path d="M50 15L52 35L60 25L58 45L68 38L62 55L78 52L68 65L82 70L65 72L70 88L55 75L52 92L50 75L45 90L48 73L32 80L40 68L25 65L40 58L28 48L43 52L38 35L50 45L48 25" fill="currentColor" className="text-primary" />
-          </svg>
-          <svg className="absolute bottom-10 right-20 w-28 h-28" viewBox="0 0 110 110" fill="none">
-            <ellipse cx="55" cy="55" rx="15" ry="25" fill="currentColor" className="text-primary" opacity="0.3" transform="rotate(45 55 55)" />
-            <ellipse cx="55" cy="55" rx="15" ry="25" fill="currentColor" className="text-primary" opacity="0.3" transform="rotate(-45 55 55)" />
-          </svg>
-        </div>
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-3xl font-bold text-center mb-8 font-serif">Быстрый заказ букета</h3>
-            <Card>
-              <CardContent className="p-6 space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Повод</label>
-                    <Select value={selectedOccasion} onValueChange={setSelectedOccasion}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Выберите повод" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="birthday">День рождения</SelectItem>
-                        <SelectItem value="wedding">Свадьба</SelectItem>
-                        <SelectItem value="anniversary">Годовщина</SelectItem>
-                        <SelectItem value="romantic">Романтическое свидание</SelectItem>
-                        <SelectItem value="corporate">Корпоратив</SelectItem>
-                        <SelectItem value="other">Другое</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Бюджет</label>
-                    <Select value={selectedBudget} onValueChange={setSelectedBudget}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Выберите бюджет" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="budget1">До 3 000 ₽</SelectItem>
-                        <SelectItem value="budget2">3 000 - 5 000 ₽</SelectItem>
-                        <SelectItem value="budget3">5 000 - 8 000 ₽</SelectItem>
-                        <SelectItem value="budget4">От 8 000 ₽</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Телефон</label>
-                  <Input type="tel" placeholder="+7 (___) ___-__-__" />
-                </div>
-                <Button className="w-full" size="lg" onClick={handleAddToCart}>
-                  <Icon name="Sparkles" size={18} className="mr-2" />
-                  Подобрать букет
-                </Button>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
@@ -250,7 +245,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-secondary/30 relative overflow-hidden">
+      <section id="reviews" className="py-16 bg-secondary/30 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <svg className="absolute top-20 left-1/4 w-28 h-28" viewBox="0 0 110 110" fill="none">
             <circle cx="55" cy="55" r="18" fill="currentColor" className="text-primary" opacity="0.3" />
@@ -363,16 +358,20 @@ const Index = () => {
                 <li><a href="#contacts" className="hover:text-primary transition-colors">Контакты</a></li>
               </ul>
             </div>
-            <div>
+            <div id="contacts">
               <h5 className="font-semibold mb-3">Контакты</h5>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-center gap-2">
                   <Icon name="Phone" size={16} />
-                  <span>+7 (999) 123-45-67</span>
+                  <span>+7 (923) 423-30-40</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <Icon name="Mail" size={16} />
-                  <span>info@cvetanika.ru</span>
+                <li className="flex items-start gap-2">
+                  <Icon name="Clock" size={16} className="mt-0.5" />
+                  <div>
+                    <p>Режим работы:</p>
+                    <p>Вт-Вс: 10:00 - 20:00</p>
+                    <p>Пн: 15:00 - 20:00</p>
+                  </div>
                 </li>
                 <li className="flex items-center gap-2 pt-2">
                   <a href="https://t.me/cvetanika" className="hover:text-primary transition-colors">
